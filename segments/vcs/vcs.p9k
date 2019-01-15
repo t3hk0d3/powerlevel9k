@@ -349,7 +349,12 @@ __p9k_vcs_init() {
   zstyle ':vcs_info:*' enable git hg svn
 
   # If enabled, this style causes the %c and %u format escapes to show when the working directory has uncommitted changes. The strings displayed by these escapes can be controlled via the stagedstr and unstagedstr styles. The only backends that currently support this option are git, hg, and bzr (the latter two only support unstaged).
-  zstyle ':vcs_info:*' check-for-changes true
+  defined POWERLEVEL9K_VCS_CHECK_FOR_CHANGES || POWERLEVEL9K_VCS_CHECK_FOR_CHANGES='true'
+  zstyle ':vcs_info:*' check-for-changes $POWERLEVEL9K_VCS_CHECK_FOR_CHANGES
+
+  # If set to true, vcs_info goes the extra mile to figure out the revision of a repository’s work tree
+  defined POWERLEVEL9K_VCS_GET_REVISION || POWERLEVEL9K_VCS_GET_REVISION='true'
+  zstyle ':vcs_info:git:*' get-revision $POWERLEVEL9K_VCS_GET_REVISION
 
   # A list of formats, used when actionformats is not used (which is most of the time).
   VCS_DEFAULT_FORMAT="${VCS_CHANGESET_PREFIX}%b%c%u%m"
