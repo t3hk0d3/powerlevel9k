@@ -1564,7 +1564,11 @@ powerlevel9k_vcs_init() {
   fi
 
   zstyle ':vcs_info:*' enable git hg svn
-  zstyle ':vcs_info:*' check-for-changes true
+
+  defined POWERLEVEL9K_VCS_CHECK_FOR_CHANGES || POWERLEVEL9K_VCS_CHECK_FOR_CHANGES='true'
+  zstyle ':vcs_info:*' check-for-changes $POWERLEVEL9K_VCS_CHECK_FOR_CHANGES
+  defined POWERLEVEL9K_VCS_GET_REVISION || POWERLEVEL9K_VCS_GET_REVISION='true'
+  zstyle ':vcs_info:git:*' get-revision $POWERLEVEL9K_VCS_GET_REVISION
 
   VCS_DEFAULT_FORMAT="$VCS_CHANGESET_PREFIX%b%c%u%m"
   zstyle ':vcs_info:*' formats "$VCS_DEFAULT_FORMAT"
